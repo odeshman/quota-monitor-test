@@ -40,11 +40,11 @@ export enum QUOTA_STATUS {
 interface IQuotaUtilizationEvent {
   status: QUOTA_STATUS;
   "check-item-detail": {
-    "Limit Name": string;
+    "Limit_Name": string;
     Service: string;
     Region: string;
-    "Current Usage": string;
-    "Limit Amount": string;
+    "Current_Usage": string;
+    "Limit_Amount": string;
     Timestamp?: Date;
   };
 }
@@ -136,11 +136,11 @@ export function createQuotaUtilizationEvents(metricData: MetricDataResult) {
     const quotaEvents: IQuotaUtilizationEvent = {
       status: QUOTA_STATUS.OK,
       "check-item-detail": {
-        "Limit Name": quotaIdentifier.QuotaName,
+        "Limit_Name": quotaIdentifier.QuotaName,
         Service: quotaIdentifier.ServiceName,
         Region: <string>process.env.AWS_REGION,
-        "Current Usage": "",
-        "Limit Amount": "100", // max utilization is 100%
+        "Current_Usage": "",
+        "Limit_Amount": "100", // max utilization is 100%
       },
     };
     if (value == 100) {
@@ -150,7 +150,7 @@ export function createQuotaUtilizationEvents(metricData: MetricDataResult) {
     } else {
       quotaEvents.status = QUOTA_STATUS.OK;
     }
-    quotaEvents["check-item-detail"]["Current Usage"] = "" + value;
+    quotaEvents["check-item-detail"]["Current_Usage"] = "" + value;
     quotaEvents["check-item-detail"].Timestamp = (<Date[]>(
       metricData.Timestamps
     ))[index];
